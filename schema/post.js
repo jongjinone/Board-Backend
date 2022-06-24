@@ -9,9 +9,9 @@ const postSchema = new mongoose.Schema(
     content: String,
     postNum: { type: Number, default: 0 },
     user_id: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    likes: [{
+    likes: [{ //User 모델을 참조하여 objectId를 가져옴
         user_id: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
-    }],
+    }],    
     reple: [
       {
         content: String,
@@ -22,11 +22,11 @@ const postSchema = new mongoose.Schema(
   { versionKey: false, timestamps: true }
 );
 
-postSchema.plugin(autoIncrement.plugin, {
+postSchema.plugin(autoIncrement.plugin, { //autoincrement를 위해 설정
   model: "Post",
-  field: "postNum",
-  startAt: 1, //시작
-  increment: 1, // 증가
+  field: "postNum", //collection 중 postNum 필드를 기준 
+  startAt: 1, //1부터 시작
+  increment: 1, // 1씩 증가
 });
 
 module.exports = mongoose.model("Post", postSchema, "posts");
